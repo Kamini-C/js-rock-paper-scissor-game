@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Javascript - Rock/Paper/Scissor</title>
+	<meta name="description" content="description">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body{
+			background: antiquewhite;
+			font-size: 18px;
+			text-align: center;
+			font-weight: 600;
+			padding: 50px;
+		}
+		div {
+			margin-bottom: 20px;
+		}
+		#game, #scoreBoard{
+			width: 49%;
+			float: left;
+			margin-left: 5px;
+		}
+		fieldset{
+			height: 120px;
+			box-shadow: 4px 4px 2px 3px rosybrown;
+		}
+		.block{
+			background: #a952f9b8;
+			height: 40px;
+			width: 100px;
+			font-size: 15px;
+			border-radius: 0% 30%;
+			box-shadow: 4px 6px 4px 2px rosybrown;
+		}
+	</style>
+	<script type="text/javascript">
+		var userScore = 0;
+		var computerScore = 0;
+		var draw = 0;
+		var userInput="";
+		var computerInput="";
+		var result= "";
+		var optionArray = ['Rock','Paper','Scissor'];
+		function addEvent(){
+		var blocks = document.getElementsByClassName("block");
+			for(i=0; i<blocks.length;i++){
+				blocks[i].addEventListener("click",setUserInput);
+			}
+		}	
+		function setUserInput(){
+			userInput= this.id;
+			document.getElementById("userInput").innerHTML = userInput;
+			setComputerInput();
+		}
+		function setComputerInput(){
+			let num = parseInt(Math.random()*3);
+			document.getElementById("computerInput").innerHTML = optionArray[num];
+			findResult();
+		}
+		function findResult(){
+			userInput = document.getElementById("userInput").innerHTML;
+			computerInput = document.getElementById("computerInput").innerHTML;
+			if(userInput == "Rock" && computerInput == "Paper"){
+				result = "You Lose"; computerScore += 1;
+			}else if(userInput == "Rock" && computerInput == "Scissor"){
+				result = "You Win"; userScore += 1;
+			}else if(userInput == "Paper" && computerInput == "Rock"){
+				result = "You Win"; userScore += 1;
+			}else if(userInput == "Paper" && computerInput == "Scissor"){
+				result = "You Lose"; computerScore += 1;
+			}else if(userInput == "Scissor" && computerInput == "Paper"){
+				result = "You Win"; userScore += 1;
+			}else if(userInput == "Scissor" && computerInput == "Rock"){
+				result = "You Lose"; computerScore += 1;
+			}else{
+				result = "Draw" ; draw += 1;
+			}
+			document.getElementById("result").innerHTML = result;
+			updateScoreBoard();
+		}
+		function updateScoreBoard(){
+			document.getElementById("userScore").innerHTML = userScore;
+			document.getElementById("computerScore").innerHTML = computerScore;
+			document.getElementById("draw").innerHTML = draw;	
+		}
+	</script>
+</head>
+<body onload="addEvent()">
+	<p>1. Click on Any Button to Start Playing.</p>
+	<div>
+		<button class="block" id="Rock">Rock</button>
+		<button class="block" id="Paper">Paper</button>
+		<button class="block" id="Scissor">Scissor</button>
+	</div>
+	<section>
+	<div id="game">
+		<fieldset>
+			<legend>Game Results</legend>
+		You Choose : <span id="userInput"> </span> <br/><br/>
+		Computer Choose : <span id="computerInput"> </span> <br/><br/>
+		Result : <span id="result"> </span>
+	</fieldset>
+	</div>
+	<div id="scoreBoard">
+		<Fieldset>
+			<legend>Scoreboard</legend>
+			User : <span id="userScore"> </span> <br/><br/>
+			Computer : <span id="computerScore"> </span> <br/><br/>
+			Draw : <span id="draw"> </span>		
+		</Fieldset>
+	</div>
+</section>
+</body>
+</html>
